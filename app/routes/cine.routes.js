@@ -8,7 +8,7 @@ module.exports = app => {
     // Retrieve a single movie with id
     router.get("/:id", cine.findOne);
       // Retrieve a single movie with name
-    router.get("/:id", cine.findOneName);
+    router.get("/name/", cine.findOneName);
     // Update a movie with id
     router.put("/update/:id", cine.update);
     // Delete a movie with id

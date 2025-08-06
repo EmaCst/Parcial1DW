@@ -146,7 +146,7 @@ exports.findOneName = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving movie with id=" + nomobre
+                message: "Error retrieving movie with id=" + nombre
             });
         });
 };
