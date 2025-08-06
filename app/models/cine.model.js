@@ -2,29 +2,29 @@
 module.exports = (sequelize, Sequelize) => {
 // usamos el sequelize.defina para "definir" el nombre de la entity en la BD, en este caso "cliente"
 // Usamos type.Sequelize para definir el tipo de datos de cada atributo de la entidad 
-    const Cliente = sequelize.define("cliente", {
+    const Cine = sequelize.define("cine", {
         nombre: {
             type: Sequelize.STRING
         },
-        apellido: {
+        sinopsis: {
             type: Sequelize.STRING
         },
-        direccion: {
+        actores: {
             type: Sequelize.STRING
         },
-        correo: {
-            type: Sequelize.STRING
+        duracion_en_minutos: {
+            type: Sequelize.INTEGER
         },
         
-        telefono: {
+        tipo: {
             type: Sequelize.STRING
         },
-        ingreso:{
-            type: Sequelize.DATE
+        categoria:{
+            type: Sequelize.STRING
         },
-        status: {
-            type: Sequelize.BOOLEAN
+        anio_lanzamiento: {
+            type: Sequelize.INTEGER
         }
     });
-    return Cliente;
+    return Cine;
 };

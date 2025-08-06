@@ -26,16 +26,11 @@ db.sequelize.sync();
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "UMG Web Application" });
+  res.json({ message: "Parcial 1 David Emanuel Castellanos Velàsquez" });
 });
 
-/*
-require("./app/routes/libro.routes")(app);
-require("./app/routes/cliente.routes")(app);
-require("./app/routes/estudiante.routes")(app);
-require("./app/routes/prestamo.routes")(app);
-*/
-require("./app/routes/cliente.routes")(app);
+
+require("./app/routes/cine.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;

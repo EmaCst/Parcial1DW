@@ -1,9 +1,9 @@
 // importamos db los modelos en este caso si tenemos uno o mas, se puede referenciar db."nombreModelo".   
 const db = require("../models");
-const Cliente = db.clientes;
+const Cine = db.cine;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Client
+// Create and Save a new Cine
 exports.create = (req, res) => {
     // Validamos que dentro del  request no venga vacio el nombre, de lo contrario returna error
     if (!req.body.nombre) {
@@ -13,59 +13,58 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create a Client, definiendo una variable con la estructura del reques para luego solo ser enviada como parametro mas adelante. 
-    const cliente = {
+    // Create a movie, definiendo una variable con la estructura del reques para luego solo ser enviada como parametro mas adelante. 
+    const cine = {
         nombre: req.body.nombre,
-        apellido: req.body.apellido,
-        direccion: req.body.direccion, 
-        correo: req.body.correo,
-        telefono: req.body.telefono,
-        ingreso: req.body.ingreso,
-        // utilizando ? nos ayuda a indicar que el paramatro puede ser opcional dado que si no viene, le podemos asignar un valor default
-        status: req.body.status ? req.body.status : false
-    };
+        sinopsis: req.body.sinopsis,
+        actores: req.body.actores, 
+        duracion_en_minutos: req.body.duracion_en_minutos,
+        tipo: req.body.tipo,
+        categoria: req.body.categoria,
+        anio_lanzamiento: req.body.anio_lanzamiento,
+       };
 
-    // Save a new Client into the database
-    Cliente.create(cliente)
+    // Save a new Cine into the database
+    Cine.create(cine)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Client."
+                    err.message || "Some error occurred while creating the movie."
             });
         });
 };
 
-// Retrieve all Client from the database.
+// Retrieve all movies from the database.
 exports.findAll = (req, res) => {
     const nombre = req.query.nombre;
     var condition = nombre ? { nombre: { [Op.iLike]: `%${nombre}%` } } : null;
 
-    Cliente.findAll({ where: condition })
+    Cine.findAll({ where: condition })
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving clients."
+                    err.message || "Some error occurred while retrieving movies."
             });
         });
 };
 
-// Find a single Tutorial with an id
+// Find a single movie with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    Cliente.findByPk(id)
+    Cine.findByPk(id)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Cliente with id=" + id
+                message: "Error retrieving movie with id=" + id
             });
         });
 };
@@ -74,79 +73,81 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Cliente.update(req.body, {
+    Cine.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Cliente was updated successfully."
+                    message: "movie was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Client with id=${id}. Maybe Client was not found or req.body is empty!`
+                    message: `Cannot update movie with id=${id}. Maybe Client was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Client with id=" + id
+                message: "Error updating movie with id=" + id
             });
         });
 };
 
-// Delete a Client with the specified id in the request
+// Delete a movie with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
     // utilizamos el metodo destroy para eliminar el objeto mandamos la condicionante where id = parametro que recibimos 
-    Cliente.destroy({
+    Cine.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Client was deleted successfully!"
+                    message: "movie was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Client with id=${id}. El cliente no fue encontado!`
+                    message: `Cannot delete movie with id=${id}. La pelicula no fue encontado!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Tutorial with id=" + id
+                message: "Could not delete movie with id=" + id
             });
         });
 };
 
-// Delete all Clients from the database.
+// Delete all movies from the database.
 exports.deleteAll = (req, res) => {
-    Cliente.destroy({
+    Cine.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Clients were deleted successfully!` });
+            res.send({ message: `${nums} movies were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all clients."
+                    err.message || "Some error occurred while removing all movies."
             });
         });
 };
 
-// find all active Client, basado en el atributo status vamos a buscar que solo los clientes activos
-exports.findAllStatus = (req, res) => {
-    Cliente.findAll({ where: { status: true } })
+// Find a single movie with a name
+exports.findOneName = (req, res) => {
+    const nombre = req.params.id;
+
+    Cine.findBy(nombre)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
-                message:
-                    err.message || "Some error occurred while retrieving Client."
+                message: "Error retrieving movie with id=" + nomobre
             });
-        }); 
+        });
 };
+

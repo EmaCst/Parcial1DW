@@ -39,6 +39,6 @@ db.libros = require("./libro.model.js")(sequelize,Sequelize);
 db.estudiantes = require("./estudiante.model.js")(sequelize,Sequelize);
 db.prestamos = require("./prestamo.model.js")(sequelize,Sequelize);
 */
-db.clientes =  require("./cliente.model.js")(sequelize,Sequelize);
+db.cine =  require("./cine.model.js")(sequelize,Sequelize);
 
 module.exports = db;
